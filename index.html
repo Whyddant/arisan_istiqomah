@@ -751,6 +751,46 @@
       line-height: 1.4;
     }
 
+    /* ===== PDF MODAL ===== */
+    .pdf-modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      height: min(85vh, 720px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .pdf-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-light);
+      flex-shrink: 0;
+    }
+    .pdf-modal-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--warm-700);
+    }
+    .pdf-modal-header a {
+      font-size: 12px;
+      color: var(--accent-solid);
+      text-decoration: none;
+      margin-right: 28px;
+    }
+    .pdf-modal-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+      background: #525659;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
       .container {
@@ -879,8 +919,20 @@
           <option value="sudah">Sudah dapat giliran</option>
           <option value="kosong">ML belum diisi</option>
         </select>
-        <a class="btn-reset" href="buku-besar.pdf" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">📄 Buku Besar (PDF)</a>
+        <button class="btn-reset" id="btn-pdf" type="button">📄 Buku Besar (PDF)</button>
         <button class="btn-reset" id="btn-reset">Reset data</button>
+      </div>
+    </div>
+
+    <!-- ===== PDF MODAL ===== -->
+    <div class="modal-overlay" id="pdf-modal">
+      <div class="pdf-modal-box">
+        <div class="pdf-modal-header">
+          <span class="pdf-modal-title">📄 Buku Besar (PDF)</span>
+          <a href="buku-besar.pdf" download>⬇ Unduh</a>
+          <button class="modal-close" id="pdf-modal-close" aria-label="Tutup">&times;</button>
+        </div>
+        <iframe class="pdf-modal-frame" id="pdf-modal-frame" src="" title="Buku Besar"></iframe>
       </div>
     </div>
 
@@ -1452,6 +1504,16 @@
         document.getElementById('progress-modal').classList.remove('open');
       }
 
+      function openPdfModal() {
+        const frame = document.getElementById('pdf-modal-frame');
+        if (!frame.src) frame.src = 'buku-besar.pdf';
+        document.getElementById('pdf-modal').classList.add('open');
+      }
+
+      function closePdfModal() {
+        document.getElementById('pdf-modal').classList.remove('open');
+      }
+
       function renderLog() {
         const list = document.getElementById('log-list');
         if (!state.log.length) {
@@ -1500,7 +1562,13 @@
         if (e.target.id === 'progress-modal') closeProgressModal();
       });
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeProgressModal();
+        if (e.key === 'Escape') { closeProgressModal(); closePdfModal(); }
+      });
+
+      document.getElementById('btn-pdf').addEventListener('click', openPdfModal);
+      document.getElementById('pdf-modal-close').addEventListener('click', closePdfModal);
+      document.getElementById('pdf-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'pdf-modal') closePdfModal();
       });
 
       loadState();
