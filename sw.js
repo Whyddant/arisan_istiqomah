@@ -5,7 +5,9 @@ const ASSETS = [
   "./manifest.json",
   "./logo-192.png",
   "./logo-512.png",
-  "./buku-besar.pdf"
+  "./buku-besar.pdf",
+  "./libs/pdf.min.js",
+  "./libs/pdf.worker.min.js"
 ];
 
 self.addEventListener("install", (event) => {
