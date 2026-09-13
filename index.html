@@ -805,7 +805,7 @@
       <div class="next-info" id="next-date-line"></div>
 
       <div class="next-nominal">
-        <span class="next-nominal-label">Mulang ke <strong id="next-nominal-name">anggota</strong></span>
+        <span class="next-nominal-label">Nominal ke <strong id="next-nominal-name">anggota</strong></span>
         <div>
           <span class="next-nominal-value" id="next-total">Rp 0</span>
           <div class="next-nominal-warn" id="next-warn"></div>
@@ -879,6 +879,7 @@
           <option value="sudah">Sudah dapat giliran</option>
           <option value="kosong">ML belum diisi</option>
         </select>
+        <a class="btn-reset" href="buku-besar.pdf" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">📄 Buku Besar (PDF)</a>
         <button class="btn-reset" id="btn-reset">Reset data</button>
       </div>
     </div>
@@ -1104,7 +1105,7 @@
           p++;
         }
         document.getElementById('upcoming-line').innerHTML = preview.length
-          ? '👉 <strong>Berikutnya:</strong> ' + preview.join(' → ')
+          ? '👉 <strong>Setelah itu:</strong> ' + preview.join(' → ')
           : '';
 
         // Stats
